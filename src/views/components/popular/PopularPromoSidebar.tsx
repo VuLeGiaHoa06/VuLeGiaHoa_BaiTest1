@@ -15,7 +15,7 @@ export const PopularPromoSidebar: React.FC<PromoSidebarProps> = ({
   onCtaClick,
 }) => {
   return (
-    <div className="relative w-full md:w-[260px] lg:w-[280px] shrink-0 bg-white p-7 sm:p-8 flex flex-col justify-between overflow-hidden shadow-xs border border-gray-100">
+    <div className="relative w-full md:w-65 lg:w-70 shrink-0 bg-white p-7 sm:p-8 flex flex-col justify-between overflow-hidden shadow-xs border border-gray-100">
       <div className="absolute top-8 right-6 w-32 h-32 pointer-events-none opacity-80">
         <svg
           viewBox="0 0 100 100"
