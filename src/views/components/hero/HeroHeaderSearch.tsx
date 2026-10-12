@@ -4,7 +4,8 @@ import { useAppController } from "../../../controllers/useAppController";
 import { useNavigate } from "react-router-dom";
 
 export const HeroHeaderSearch: React.FC = () => {
-  const { cartCount, searchQuery, setSearchQuery, handleSearchSubmit } = useAppController();
+  const { cartCount, searchQuery, setSearchQuery, handleSearchSubmit } =
+    useAppController();
   const navigate = useNavigate();
 
   const onSearch = (e: React.FormEvent) => {
@@ -27,7 +28,7 @@ export const HeroHeaderSearch: React.FC = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Reasonable Price"
+          placeholder="Search for products"
           className="flex-1 px-4 py-2 text-sm text-gray-700 outline-none placeholder:text-gray-400"
         />
         <button
