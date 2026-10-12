@@ -2,15 +2,19 @@ import React from 'react';
 import { ProductCard } from '../components/ProductCard';
 import { useAppController } from '../../controllers/useAppController';
 import { HeroSection } from '../components/hero';
+import { MostPopularSection, SkincareFeatureBanner } from '../components/popular';
 import { Sparkles, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
-  const { products } = useAppController();
+  const { products, addToCart } = useAppController();
 
   return (
-    <div className="space-y-8 pb-16">
-      {/* Hero Section with Category, Slider & Promos */}
+    <div className="space-y-6 pb-16">
       <HeroSection />
+
+      <MostPopularSection onAddToCart={addToCart} />
+
+      <SkincareFeatureBanner />
 
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-indigo-800 to-slate-900 text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8 rounded-3xl mx-4 sm:mx-6 lg:mx-8 my-6 shadow-2xl">
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
@@ -42,7 +46,6 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Feature Highlights */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-gray-100 shadow-xs">
@@ -77,7 +80,6 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Products Grid */}
       <section id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
