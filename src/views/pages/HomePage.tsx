@@ -7,6 +7,7 @@ import {
 } from "../components/popular";
 import { AwardRecognitionSection } from "../components/awards";
 import { TheWaySection } from "../components/the-way";
+import { NewsSection } from "../components/news";
 
 export const HomePage: React.FC = () => {
   const { addToCart } = useAppController();
@@ -22,6 +23,8 @@ export const HomePage: React.FC = () => {
       <AwardRecognitionSection />
 
       <TheWaySection />
+
+      <NewsSection />
     </div>
   );
 };
