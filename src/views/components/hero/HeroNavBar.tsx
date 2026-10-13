@@ -18,7 +18,9 @@ export const HeroNavBar: React.FC = () => {
         <Link
           to="/"
           className={`transition-colors ${
-            isHome ? "text-[#C5832B] font-semibold" : "text-gray-700 hover:text-[#551760]"
+            isHome
+              ? "text-[#C5832B] font-semibold"
+              : "text-gray-700 hover:text-[#551760]"
           }`}
         >
           Home
@@ -27,7 +29,9 @@ export const HeroNavBar: React.FC = () => {
         <Link
           to="/shop"
           className={`transition-colors ${
-            isShop ? "text-[#C5832B] font-semibold" : "text-gray-700 hover:text-[#551760]"
+            isShop
+              ? "text-[#C5832B] font-semibold"
+              : "text-gray-700 hover:text-[#551760]"
           }`}
         >
           Shop
@@ -36,7 +40,9 @@ export const HeroNavBar: React.FC = () => {
         <Link
           to="/detail"
           className={`transition-colors ${
-            isDetail ? "text-[#C5832B] font-semibold" : "text-gray-700 hover:text-[#551760]"
+            isDetail
+              ? "text-[#C5832B] font-semibold"
+              : "text-gray-700 hover:text-[#551760]"
           }`}
         >
           Shop Detail
@@ -48,32 +54,22 @@ export const HeroNavBar: React.FC = () => {
           onMouseLeave={() => setPagesDropdownOpen(false)}
         >
           <div className="flex items-center gap-1 cursor-pointer">
-            <Link
-              to="/pages"
+            <p
               className={`transition-colors ${
-                isPages ? "text-[#C5832B] font-semibold" : "text-gray-700 hover:text-[#551760]"
+                isPages
+                  ? "text-[#C5832B] font-semibold"
+                  : "text-gray-700 hover:text-[#551760]"
               }`}
             >
               Pages
-            </Link>
+            </p>
             <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
           </div>
 
           {pagesDropdownOpen && (
             <div className="absolute left-0 top-full pt-1 z-30 w-44">
-              <div className="bg-white border border-gray-200 shadow-md py-1.5 flex flex-col text-xs text-gray-700">
-                <Link
-                  to="/pages/shopping-cart"
-                  className="px-4 py-2 hover:bg-gray-50 hover:text-[#551760]"
-                >
-                  Shopping Cart
-                </Link>
-                <Link
-                  to="/pages/checkout"
-                  className="px-4 py-2 hover:bg-gray-50 hover:text-[#551760]"
-                >
-                  Checkout
-                </Link>
+              <div className="bg-white border border-gray-200 shadow-md p-4 flex justify-center items-center ">
+                <p className="font-bold text-xs text-gray-700">ComingPages</p>
               </div>
             </div>
           )}
@@ -82,7 +78,9 @@ export const HeroNavBar: React.FC = () => {
         <Link
           to="/contact"
           className={`transition-colors ${
-            isContact ? "text-[#C5832B] font-semibold" : "text-gray-700 hover:text-[#551760]"
+            isContact
+              ? "text-[#C5832B] font-semibold"
+              : "text-gray-700 hover:text-[#551760]"
           }`}
         >
           Contact

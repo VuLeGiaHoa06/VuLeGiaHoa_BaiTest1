@@ -40,7 +40,7 @@ export const HeroHeaderSearch: React.FC = () => {
         </button>
       </form>
 
-      <div className="flex items-center gap-4 text-xs font-semibold text-[#551760]">
+      <div className="flex items-center gap-2 text-xs font-semibold text-[#551760]">
         <div className="flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-xs cursor-pointer hover:bg-gray-50">
           <Heart className="w-4 h-4 text-[#551760] fill-[#551760]" />
           <span>0</span>
