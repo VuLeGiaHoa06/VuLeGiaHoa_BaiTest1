@@ -13,7 +13,7 @@ interface NewsCardProps {
 
 export const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
   return (
-    <div className="bg-white border border-gray-100 flex flex-col justify-between overflow-hidden shadow-2xs hover:shadow-md transition-shadow duration-300 w-full min-w-[170px] sm:min-w-[190px]">
+    <div className="bg-white border border-gray-100 flex flex-col justify-between overflow-hidden shadow-2xs hover:shadow-md transition-shadow duration-300 w-full h-full">
       <div className="p-3 sm:p-4 bg-white flex items-center justify-center">
         <div className="w-full aspect-square overflow-hidden bg-slate-50 flex items-center justify-center">
           <img

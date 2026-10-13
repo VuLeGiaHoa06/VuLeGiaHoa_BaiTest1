@@ -164,15 +164,26 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
           <ChevronLeft className="w-4 h-4" />
         </button>
 
-        {/* Danh sách card - hiển thị 3 card tại scrollIndex */}
-        <div className="grid grid-cols-3 gap-4 overflow-hidden">
-          {products.slice(scrollIndex, scrollIndex + CARDS_PER_PAGE).map((item) => (
-            <PopularProductCard
-              key={item.id}
-              product={item}
-              onAddToCart={onAddToCart}
-            />
-          ))}
+        {/* Danh sách card - trượt mượt mà với animation */}
+        <div className="overflow-hidden w-full">
+          <div
+            className="flex transition-transform duration-500 ease-in-out -mx-2"
+            style={{
+              transform: `translateX(-${scrollIndex * (100 / CARDS_PER_PAGE)}%)`,
+            }}
+          >
+            {products.map((item) => (
+              <div
+                key={item.id}
+                className="w-1/3 shrink-0 px-2 box-border"
+              >
+                <PopularProductCard
+                  product={item}
+                  onAddToCart={onAddToCart}
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Nút phải */}
