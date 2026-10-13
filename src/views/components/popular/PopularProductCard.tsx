@@ -23,19 +23,9 @@ export const PopularProductCard: React.FC<PopularProductCardProps> = ({
   return (
     <div className="relative bg-white border border-gray-100 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow duration-300 w-full min-w-[170px] sm:min-w-[190px]">
       {product.tag && (
-        <span className="absolute top-2 left-2 z-10 bg-[#5cb85c] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-xs uppercase tracking-wider">
+        <span className="absolute top-4 z-10 bg-[#5cb85c] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-r-xs uppercase tracking-wider">
           {product.tag}
         </span>
-      )}
-
-      {product.badgeImageUrl && (
-        <div className="absolute top-2 right-2 z-10 w-7 h-7 sm:w-8 sm:h-8 rounded-full shadow-xs overflow-hidden flex items-center justify-center bg-white border border-yellow-200">
-          <img
-            src={product.badgeImageUrl}
-            alt="Award badge"
-            className="w-full h-full object-cover"
-          />
-        </div>
       )}
 
       <div className="pt-8 pb-4 px-4 flex items-center justify-center h-48 sm:h-52 bg-white">
