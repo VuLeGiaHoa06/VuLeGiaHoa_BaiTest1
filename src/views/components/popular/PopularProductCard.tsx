@@ -59,7 +59,7 @@ export const PopularProductCard: React.FC<PopularProductCardProps> = ({
 
         <button
           onClick={() => onAddToCart?.(product.id)}
-          className="w-full py-2 bg-[#551760] hover:bg-[#43124c] active:bg-[#340b3c] text-white text-xs font-medium transition-colors cursor-pointer rounded-xs"
+          className="w-full py-2 bg-[#551760] hover:bg-[#43124c] active:bg-[#340b3c] hover:shadow-md active:scale-95 text-white text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer rounded-xs"
         >
           Add to card
         </button>

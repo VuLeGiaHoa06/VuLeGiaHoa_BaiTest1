@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Search, Heart, ShoppingCart, Plus, Minus, Trash2, X } from "lucide-react";
 import { useAppController } from "../../../controllers/useAppController";
+import { validateSearchQuery } from "../../../models/search.model";
 import { useNavigate } from "react-router-dom";
 
 export const HeroHeaderSearch: React.FC = () => {
   const {
     cartCount,
-    setCartCount,
     addToCart,
     decrementCart,
     clearCart,
@@ -18,7 +18,17 @@ export const HeroHeaderSearch: React.FC = () => {
 
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
+  const [badgeBump, setBadgeBump] = useState<boolean>(false);
   const cartRef = useRef<HTMLDivElement>(null);
+
+  // Hiệu ứng animation nảy số (bump) khi số lượng giỏ hàng tăng/thay đổi
+  useEffect(() => {
+    if (cartCount > 0) {
+      setBadgeBump(true);
+      const timer = setTimeout(() => setBadgeBump(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [cartCount]);
 
   // Đóng mini-cart khi click ra ngoài
   useEffect(() => {
@@ -35,18 +45,18 @@ export const HeroHeaderSearch: React.FC = () => {
     };
   }, [isCartOpen]);
 
-  // Xử lý tìm kiếm (cả bấm nút search hoặc nhấn Enter)
+  // Xử lý tìm kiếm với Model validation (cả bấm nút search hoặc nhấn Enter)
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = searchQuery.trim();
+    const result = validateSearchQuery(searchQuery);
 
-    if (!trimmed) {
-      setErrorMessage("Vui lòng nhập từ khóa tìm kiếm!");
+    if (!result.isValid) {
+      setErrorMessage(result.error || "Vui lòng nhập từ khóa tìm kiếm!");
       return;
     }
 
     setErrorMessage("");
-    handleSearchSubmit(trimmed);
+    handleSearchSubmit(result.trimmedQuery);
     navigate("/detail");
   };
 
@@ -54,12 +64,14 @@ export const HeroHeaderSearch: React.FC = () => {
     <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-3 px-2 sm:px-4">
       <div className="hidden lg:block w-64 shrink-0"></div>
 
-      {/* Form tìm kiếm hỗ trợ Enter và nút Search, có validation */}
+      {/* Form tìm kiếm hỗ trợ Enter và nút Search, có validation và hiệu ứng hover/active */}
       <div className="flex-1 max-w-xl w-full flex flex-col">
         <form
           onSubmit={onSearch}
-          className={`w-full flex items-center border transition-colors ${
-            errorMessage ? "border-red-500" : "border-gray-300 focus-within:border-[#551760]"
+          className={`w-full flex items-center border transition-all duration-200 ${
+            errorMessage
+              ? "border-red-500 shadow-xs"
+              : "border-gray-300 hover:border-gray-400 focus-within:border-[#551760] focus-within:ring-2 focus-within:ring-purple-100"
           }`}
         >
           <input
@@ -75,11 +87,11 @@ export const HeroHeaderSearch: React.FC = () => {
               }
             }}
             placeholder="Search for products"
-            className="flex-1 px-4 py-2 text-sm text-gray-700 outline-none placeholder:text-gray-400"
+            className="flex-1 px-4 py-2 text-sm text-gray-700 outline-none placeholder:text-gray-400 bg-transparent transition-colors"
           />
           <button
             type="submit"
-            className="px-3.5 py-2 text-[#551760] hover:text-[#3e1046] transition-colors border-l border-gray-200 cursor-pointer"
+            className="px-3.5 py-2 text-[#551760] hover:text-[#3e1046] hover:bg-purple-50 active:bg-purple-100 active:scale-95 transition-all duration-150 border-l border-gray-200 cursor-pointer"
             aria-label="Search"
           >
             <Search className="w-4 h-4 stroke-[2.5]" />
@@ -94,7 +106,7 @@ export const HeroHeaderSearch: React.FC = () => {
 
       {/* Action icons: Yêu thích và Giỏ hàng (Mini-cart popup) */}
       <div className="flex items-center gap-2 text-xs font-semibold text-[#551760] relative">
-        <div className="flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-xs cursor-pointer hover:bg-gray-50 transition-colors">
+        <div className="flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-xs cursor-pointer hover:bg-gray-100 hover:border-gray-300 active:scale-95 transition-all duration-150">
           <Heart className="w-4 h-4 text-[#551760] fill-[#551760]" />
           <span>0</span>
         </div>
@@ -104,11 +116,23 @@ export const HeroHeaderSearch: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsCartOpen((prev) => !prev)}
-            className="flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-xs cursor-pointer hover:bg-gray-50 transition-colors"
+            className={`flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-xs cursor-pointer hover:bg-gray-100 hover:border-gray-300 active:scale-95 transition-all duration-150 ${
+              badgeBump ? "scale-110 text-purple-900 border-[#551760]" : ""
+            }`}
             aria-label="View Cart"
           >
-            <ShoppingCart className="w-4 h-4 text-[#551760] fill-[#551760]" />
-            <span>{cartCount}</span>
+            <ShoppingCart
+              className={`w-4 h-4 text-[#551760] fill-[#551760] transition-transform duration-200 ${
+                badgeBump ? "scale-125" : ""
+              }`}
+            />
+            <span
+              className={`font-bold transition-all duration-200 ${
+                badgeBump ? "text-[#551760] scale-125" : ""
+              }`}
+            >
+              {cartCount}
+            </span>
           </button>
 
           {/* Mini-cart Dropdown */}
@@ -120,7 +144,7 @@ export const HeroHeaderSearch: React.FC = () => {
                 </span>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                  className="text-gray-400 hover:text-gray-600 hover:scale-110 active:scale-95 transition-all cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>

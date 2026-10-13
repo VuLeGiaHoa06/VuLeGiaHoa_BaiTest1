@@ -1,14 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Product } from "../models/product.model";
 import { mockProducts } from "../models/products.data";
-
-const CART_STORAGE_KEY = "cartCount";
+import { getStoredCartCount, setStoredCartCount } from "../models/cart.model";
 
 interface AppContextType {
   products: Product[];
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
-  addToCart: (productId?: number) => void;
+  addToCart: (itemOrId?: string | number) => void;
   decrementCart: () => void;
   clearCart: () => void;
   searchQuery: string;
@@ -16,6 +15,7 @@ interface AppContextType {
   submittedSearchText: string;
   setSubmittedSearchText: (text: string) => void;
   handleSearchSubmit: (text: string) => void;
+  toastMessage: string | null;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -23,34 +23,37 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products] = useState<Product[]>(mockProducts);
 
-  // Khởi tạo cartCount từ localStorage (nếu có)
-  const [cartCount, setCartCount] = useState<number>(() => {
-    try {
-      const saved = localStorage.getItem(CART_STORAGE_KEY);
-      if (saved !== null) {
-        const parsed = parseInt(saved, 10);
-        return isNaN(parsed) || parsed < 0 ? 0 : parsed;
-      }
-    } catch (error) {
-      console.error("Lỗi khi đọc cartCount từ localStorage:", error);
-    }
-    return 0;
-  });
+  // Khởi tạo cartCount từ Model (đọc từ localStorage)
+  const [cartCount, setCartCount] = useState<number>(() => getStoredCartCount());
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [submittedSearchText, setSubmittedSearchText] = useState<string>("");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Lưu cartCount vào localStorage mỗi khi giá trị thay đổi
+  // Đồng bộ giỏ hàng với Model / localStorage
   useEffect(() => {
-    try {
-      localStorage.setItem(CART_STORAGE_KEY, cartCount.toString());
-    } catch (error) {
-      console.error("Lỗi khi lưu cartCount vào localStorage:", error);
-    }
+    setStoredCartCount(cartCount);
   }, [cartCount]);
 
-  const addToCart = (_productId?: number) => {
+  // Hiển thị toast notification nhẹ khi thêm sản phẩm
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    const timer = setTimeout(() => {
+      setToastMessage(null);
+    }, 2200);
+    return () => clearTimeout(timer);
+  };
+
+  const addToCart = (itemOrId?: string | number) => {
     setCartCount((prev) => prev + 1);
+    let displayName = "Sản phẩm";
+    if (typeof itemOrId === "string") {
+      displayName = itemOrId;
+    } else if (typeof itemOrId === "number") {
+      const found = products.find((p) => p.id === itemOrId);
+      if (found) displayName = found.name;
+    }
+    showToast(`Đã thêm "${displayName}" vào giỏ hàng!`);
   };
 
   const decrementCart = () => {
@@ -59,6 +62,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const clearCart = () => {
     setCartCount(0);
+    showToast("Đã xóa toàn bộ giỏ hàng!");
   };
 
   const handleSearchSubmit = (text: string) => {
@@ -79,6 +83,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         submittedSearchText,
         setSubmittedSearchText,
         handleSearchSubmit,
+        toastMessage,
       }}
     >
       {children}

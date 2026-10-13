@@ -179,7 +179,7 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
               >
                 <PopularProductCard
                   product={item}
-                  onAddToCart={onAddToCart}
+                  onAddToCart={() => onAddToCart?.(item.name as any)}
                 />
               </div>
             ))}
