@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PopularProductCard, PopularItem } from "./PopularProductCard";
 
@@ -107,7 +107,38 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
   );
   const [scrollIndex, setScrollIndex] = useState(0);
 
-  const maxIndex = Math.max(0, products.length - CARDS_PER_PAGE);
+  // Responsive số lượng card hiển thị: Mobile < 640px: 1 card, Tablet < 1024px: 2 cards, Desktop: 3 cards
+  const [cardsPerPage, setCardsPerPage] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      if (window.innerWidth < 640) return 1;
+      if (window.innerWidth < 1024) return 2;
+    }
+    return 3;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setCardsPerPage(1);
+      } else if (window.innerWidth < 1024) {
+        setCardsPerPage(2);
+      } else {
+        setCardsPerPage(3);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, products.length - cardsPerPage);
+
+  // Đảm bảo scrollIndex không vượt quá maxIndex khi thay đổi kích thước màn hình
+  useEffect(() => {
+    if (scrollIndex > maxIndex) {
+      setScrollIndex(maxIndex);
+    }
+  }, [maxIndex, scrollIndex]);
 
   const handlePrev = () => {
     setScrollIndex((prev) => Math.max(0, prev - 1));
@@ -164,18 +195,18 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
           <ChevronLeft className="w-4 h-4" />
         </button>
 
-        {/* Danh sách card - trượt mượt mà với animation */}
+        {/* Danh sách card - trượt mượt mà với animation theo cardsPerPage */}
         <div className="overflow-hidden w-full">
           <div
             className="flex transition-transform duration-500 ease-in-out -mx-2"
             style={{
-              transform: `translateX(-${scrollIndex * (100 / CARDS_PER_PAGE)}%)`,
+              transform: `translateX(-${scrollIndex * (100 / cardsPerPage)}%)`,
             }}
           >
             {products.map((item) => (
               <div
                 key={item.id}
-                className="w-1/3 shrink-0 px-2 box-border"
+                className="w-full sm:w-1/2 lg:w-1/3 shrink-0 px-2 box-border"
               >
                 <PopularProductCard
                   product={item}
