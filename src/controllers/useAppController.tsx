@@ -9,6 +9,7 @@ interface AppContextType {
   cartCount: number;
   setCartCount: React.Dispatch<React.SetStateAction<number>>;
   addToCart: (productId?: number) => void;
+  decrementCart: () => void;
   clearCart: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
@@ -52,6 +53,10 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setCartCount((prev) => prev + 1);
   };
 
+  const decrementCart = () => {
+    setCartCount((prev) => Math.max(0, prev - 1));
+  };
+
   const clearCart = () => {
     setCartCount(0);
   };
@@ -67,6 +72,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         cartCount,
         setCartCount,
         addToCart,
+        decrementCart,
         clearCart,
         searchQuery,
         setSearchQuery,
