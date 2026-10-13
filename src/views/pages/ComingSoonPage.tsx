@@ -18,17 +18,13 @@ export const ComingSoonPage: React.FC<ComingSoonPageProps> = ({
           <Clock className="w-8 h-8" />
         </div>
 
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-800 text-xs font-semibold rounded-full mb-3">
-          <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          <span>Under Construction</span>
-        </div>
-
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight mb-3">
           Coming Soon
         </h1>
 
         <p className="text-xs sm:text-sm text-gray-500 mb-8 leading-relaxed">
-          Trang <span className="font-semibold text-gray-700">{pageTitle}</span> đang được hoàn thiện. Vui lòng quay lại sau!
+          Trang <span className="font-semibold text-gray-700">{pageTitle}</span>{" "}
+          đang được hoàn thiện. Vui lòng quay lại sau!
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
