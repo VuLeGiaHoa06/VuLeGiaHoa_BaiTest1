@@ -120,7 +120,7 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
   const totalDots = maxIndex + 1;
 
   return (
-    <div className="flex-1 w-full flex flex-col justify-between">
+    <div className="flex-1 min-w-0 w-full flex flex-col justify-between">
       <div className="flex items-center justify-between border-b border-gray-200 mb-4 pb-0">
         <div className="flex items-center">
           <button

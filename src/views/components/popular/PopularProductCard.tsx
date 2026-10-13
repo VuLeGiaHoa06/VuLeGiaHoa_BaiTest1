@@ -21,7 +21,7 @@ export const PopularProductCard: React.FC<PopularProductCardProps> = ({
   onAddToCart,
 }) => {
   return (
-    <div className="relative bg-white border border-gray-100 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow duration-300 w-full min-w-[170px] sm:min-w-[190px]">
+    <div className="relative bg-white border border-gray-100 flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow duration-300 w-full h-full">
       {product.tag && (
         <span className="absolute top-4 z-10 bg-[#5cb85c] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-r-xs uppercase tracking-wider">
           {product.tag}
