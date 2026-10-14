@@ -21,7 +21,6 @@ export const HeroHeaderSearch: React.FC = () => {
   const [badgeBump, setBadgeBump] = useState<boolean>(false);
   const cartRef = useRef<HTMLDivElement>(null);
 
-  // Hiệu ứng animation nảy số (bump) khi số lượng giỏ hàng tăng/thay đổi
   useEffect(() => {
     if (cartCount > 0) {
       setBadgeBump(true);
@@ -30,7 +29,6 @@ export const HeroHeaderSearch: React.FC = () => {
     }
   }, [cartCount]);
 
-  // Đóng mini-cart khi click ra ngoài
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
@@ -45,7 +43,6 @@ export const HeroHeaderSearch: React.FC = () => {
     };
   }, [isCartOpen]);
 
-  // Xử lý tìm kiếm với Model validation (cả bấm nút search hoặc nhấn Enter)
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const result = validateSearchQuery(searchQuery);
@@ -63,8 +60,6 @@ export const HeroHeaderSearch: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-3 px-2 sm:px-4">
       <div className="hidden lg:block w-64 shrink-0"></div>
-
-      {/* Form tìm kiếm hỗ trợ Enter và nút Search, có validation và hiệu ứng hover/active */}
       <div className="flex-1 max-w-xl w-full flex flex-col">
         <form
           onSubmit={onSearch}
@@ -103,15 +98,11 @@ export const HeroHeaderSearch: React.FC = () => {
           </span>
         )}
       </div>
-
-      {/* Action icons: Yêu thích và Giỏ hàng (Mini-cart popup) */}
       <div className="flex items-center gap-2 text-xs font-semibold text-[#551760] relative">
         <div className="flex items-center gap-1.5 border border-gray-200 px-3 py-1.5 rounded-xs cursor-pointer hover:bg-gray-100 hover:border-gray-300 active:scale-95 transition-all duration-150">
           <Heart className="w-4 h-4 text-[#551760] fill-[#551760]" />
           <span>0</span>
         </div>
-
-        {/* Cart Icon & Mini-cart popup */}
         <div ref={cartRef} className="relative">
           <button
             type="button"
@@ -134,8 +125,6 @@ export const HeroHeaderSearch: React.FC = () => {
               {cartCount}
             </span>
           </button>
-
-          {/* Mini-cart Dropdown */}
           {isCartOpen && (
             <div className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white border border-gray-200 rounded-md shadow-xl z-50 p-4 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="flex items-center justify-between pb-3 border-b border-gray-100">

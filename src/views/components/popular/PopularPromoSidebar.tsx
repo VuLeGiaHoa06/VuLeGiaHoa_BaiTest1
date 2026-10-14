@@ -16,7 +16,6 @@ export const PopularPromoSidebar: React.FC<PromoSidebarProps> = ({
 }) => {
   return (
     <div className="relative w-full md:w-65 lg:w-70 shrink-0 bg-white p-7 sm:p-8 flex flex-col justify-between overflow-hidden shadow-xs border border-gray-100">
-      {/* Decorative diagonal lines - top right */}
       <div className="absolute top-0 right-0 w-36 h-72 pointer-events-none opacity-90">
         <svg
           viewBox="0 0 80 200"
@@ -25,7 +24,6 @@ export const PopularPromoSidebar: React.FC<PromoSidebarProps> = ({
           strokeLinecap="round"
           fill="none"
         >
-          {/* 4 đường xiên từ dưới-trái → trên-phải, cách nhau đều */}
           <line x1="30" y1="-10" x2="90" y2="5" />
           <line x1="30" y1="25" x2="80" y2="30" />
           <line x1="30" y1="60" x2="80" y2="55" />

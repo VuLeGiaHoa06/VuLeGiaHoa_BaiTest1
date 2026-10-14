@@ -1,14 +1,9 @@
-// Models/cart.model.ts: Quản lý cấu trúc và state lưu trữ giỏ hàng
-
 export const CART_STORAGE_KEY = "cartCount";
 
 export interface CartState {
   count: number;
 }
 
-/**
- * Đọc số lượng giỏ hàng ban đầu từ localStorage
- */
 export const getStoredCartCount = (): number => {
   try {
     const saved = localStorage.getItem(CART_STORAGE_KEY);
@@ -22,9 +17,6 @@ export const getStoredCartCount = (): number => {
   return 0;
 };
 
-/**
- * Lưu số lượng giỏ hàng vào localStorage
- */
 export const setStoredCartCount = (count: number): void => {
   try {
     localStorage.setItem(CART_STORAGE_KEY, count.toString());

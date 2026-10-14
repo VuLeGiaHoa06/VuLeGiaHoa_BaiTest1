@@ -88,8 +88,6 @@ export const NewsSlider: React.FC<NewsSliderProps> = ({
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
-
-        {/* Khung slider trượt với animation mượt mà */}
         <div className="overflow-hidden w-full">
           <div
             className="flex transition-transform duration-500 ease-in-out -mx-2"

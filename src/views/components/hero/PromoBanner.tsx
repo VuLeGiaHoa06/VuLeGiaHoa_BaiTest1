@@ -19,10 +19,7 @@ export const PromoBanner: React.FC<PromoCardProps> = ({
     <div
       className={`relative h-48 bg-gradient-to-r from-gray-100 via-neutral-300 to-neutral-500 overflow-hidden flex items-center justify-between px-6 sm:px-10 border border-gray-200/80 group ${className}`}
     >
-      {/* Hiệu ứng chuyển màu đậm dần từ trái sang phải */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-black/30 pointer-events-none z-2" />
-
-      {/* Nội dung bên trái */}
       <div className="z-10 max-w-[55%]">
         <p className="text-xs font-semibold text-gray-700 tracking-wider uppercase mb-1 drop-shadow-xs">
           {subtitle}
@@ -34,8 +31,6 @@ export const PromoBanner: React.FC<PromoCardProps> = ({
           {buttonText}
         </button>
       </div>
-
-      {/* Hình ảnh bên phải hòa trộn mượt mà với nền */}
       <div
         className="absolute right-0 top-0 bottom-0 w-1/2 overflow-hidden flex items-end justify-end pointer-events-none z-1"
         style={{

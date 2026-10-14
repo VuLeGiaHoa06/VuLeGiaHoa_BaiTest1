@@ -107,7 +107,6 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
   );
   const [scrollIndex, setScrollIndex] = useState(0);
 
-  // Responsive số lượng card hiển thị: Mobile < 640px: 1 card, Tablet < 1024px: 2 cards, Desktop: 3 cards
   const [cardsPerPage, setCardsPerPage] = useState<number>(() => {
     if (typeof window !== "undefined") {
       if (window.innerWidth < 640) return 1;
@@ -133,7 +132,6 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
 
   const maxIndex = Math.max(0, products.length - cardsPerPage);
 
-  // Đảm bảo scrollIndex không vượt quá maxIndex khi thay đổi kích thước màn hình
   useEffect(() => {
     if (scrollIndex > maxIndex) {
       setScrollIndex(maxIndex);
@@ -184,8 +182,6 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
         >
           View All &gt;&gt;
         </a>
-
-        {/* Nút trái */}
         <button
           onClick={handlePrev}
           disabled={scrollIndex === 0}
@@ -194,8 +190,6 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
-
-        {/* Danh sách card - trượt mượt mà với animation theo cardsPerPage */}
         <div className="overflow-hidden w-full">
           <div
             className="flex transition-transform duration-500 ease-in-out -mx-2"
@@ -216,8 +210,6 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
             ))}
           </div>
         </div>
-
-        {/* Nút phải */}
         <button
           onClick={handleNext}
           disabled={scrollIndex >= maxIndex}
@@ -227,8 +219,6 @@ export const PopularProductsSlider: React.FC<PopularProductsSectionProps> = ({
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
-
-      {/* Dot indicators */}
       <div className="flex items-center justify-center gap-1.5 mt-6">
         {Array.from({ length: totalDots }).map((_, i) => (
           <button

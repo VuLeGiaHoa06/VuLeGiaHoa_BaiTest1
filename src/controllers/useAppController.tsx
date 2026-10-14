@@ -23,19 +23,16 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [products] = useState<Product[]>(mockProducts);
 
-  // Khởi tạo cartCount từ Model (đọc từ localStorage)
   const [cartCount, setCartCount] = useState<number>(() => getStoredCartCount());
 
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [submittedSearchText, setSubmittedSearchText] = useState<string>("");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Đồng bộ giỏ hàng với Model / localStorage
   useEffect(() => {
     setStoredCartCount(cartCount);
   }, [cartCount]);
 
-  // Hiển thị toast notification nhẹ khi thêm sản phẩm
   const showToast = (message: string) => {
     setToastMessage(message);
     const timer = setTimeout(() => {

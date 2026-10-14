@@ -41,7 +41,6 @@ export const DetailPage: React.FC = () => {
                   />
                 </div>
               ) : (
-                /* Trạng thái rỗng (Empty State) khi chưa search gì */
                 <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
                   <div className="w-16 h-16 rounded-full bg-purple-50 flex items-center justify-center mb-4 text-[#551760]">
                     <svg

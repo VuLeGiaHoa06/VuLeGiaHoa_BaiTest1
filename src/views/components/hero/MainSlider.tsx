@@ -64,7 +64,6 @@ export const MainSlider: React.FC = () => {
     setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
-  // Autoplay every 5 seconds unless paused on hover
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -74,7 +73,6 @@ export const MainSlider: React.FC = () => {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  // Touch swipe support for mobile
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
@@ -103,7 +101,6 @@ export const MainSlider: React.FC = () => {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {/* Sliding wrapper */}
       <div
         className="flex h-full w-full transition-transform duration-500 ease-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -135,8 +132,6 @@ export const MainSlider: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {/* Prev button */}
       <button
         type="button"
         onClick={handlePrev}
@@ -145,8 +140,6 @@ export const MainSlider: React.FC = () => {
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
-
-      {/* Next button */}
       <button
         type="button"
         onClick={handleNext}
@@ -155,8 +148,6 @@ export const MainSlider: React.FC = () => {
       >
         <ChevronRight className="w-5 h-5" />
       </button>
-
-      {/* Slide indicators / dots */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {slides.map((_, index) => (
           <button
